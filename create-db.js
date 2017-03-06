@@ -4,7 +4,7 @@ const { Database } = require('sqlite3').verbose();
 
 // Returns a new database object and automatically opens the database
 // Database method accepts a callback function for successful connection
-const myDB = new Database('db/example.sqlite', () => console.log('Connected!'));
+const myDB = new Database('example.sqlite', () => console.log('Connected!'));
 
 // errorHandler is a function which accepts an error object
 const errorHandler = (err) => {
@@ -56,5 +56,5 @@ myDB.all("SELECT * FROM employees", (err, allRows) => {
 
 myDB.close(err => {
   errorHandler(err); // Use custom error handling function
-  console.log('Database closed'); // Will only log on successful close
+  process.stdout.write('Database closed'); // Will only log on successful close
 })
