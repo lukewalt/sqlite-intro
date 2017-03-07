@@ -6,5 +6,13 @@
     { "id": "4", "firstName": "Pam", "lastName": "Beesly", "salary": 52000, "dept": "reception" },
     { "id": "5", "firstName": "Michael", "lastName": "Scott", "salary": 60000, "dept": "management" },
     { "id": "6", "firstName": "Stanley", "lastName": "Hudson", "salary": 55000, "dept": "sales" }
+  ],
+  "employees": [
+    { "id": 1, "firstName": "Priya", "lastName": "Friend", "jobTitle": "Sales", "address": "500 Somewhere Lane", "salary": 56000 },
+    { "id": 2, "firstName": "John", "lastName": "Smith", "jobTitle": "Cashier", "address": "500 OTher Lane", "salary": 45000 },
+    { "id": 3, "firstName": "Phillip", "lastName": "Lewis", "jobTitle": "Grocier", "address": "500 Whers Lane", "salary": 65000 },
+    { "id": 4, "firstName": "James", "lastName": "West", "jobTitle": "IT", "address": "500 Some Lane", "salary": 76000 },
+    { "id": 5, "firstName": "Sorrel", "lastName": "Brigman", "jobTitle": "Manager", "address": "500 Everywhere Lane", "salary": 67000 },
+    { "id": 6, "firstName": "Jared", "lastName": "Fuller", "jobTitle": "Supervisor", "address": "500 One Place", "salary": 62000 }
   ]
 }
