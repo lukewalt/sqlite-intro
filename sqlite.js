@@ -16,7 +16,7 @@ const emplDB = new Database('exercise13.sqlite', () => console.log("Employee DB"
 // 2.) Create a table titled employees with the following columns: id, firstName, lastName, jobTitle, address
 
 // creates/names table {"employees-two"} as long as one with the same name doesnt already exist
-emplDB.run("CREATE TABLE IF NOT EXISTS more_employees (id INT, firstName TEXT, lastName TEXT, jobTitle TEXT, address TEXT)");
+//(original table) emplDB.run("CREATE TABLE IF NOT EXISTS more_employees (id INT, firstName TEXT, lastName TEXT, jobTitle TEXT, address TEXT)");
 
 
 // 3.) Create an array of at least 6 objects. Each object should have a key value pair matching each column name in the employees table.
@@ -36,7 +36,8 @@ const populateNewDB = () => {
       '${each.firstName}',
       '${each.lastName}',
       '${each.jobTitle}',
-      '${each.address}'
+      '${each.address}',
+      ${each.salary}
     )`)
   })
 }
@@ -51,7 +52,7 @@ emplDB.all("SELECT * FROM more_employees", (err, allData) => {
   //call the error handling function defined above
   errorHandle(err)
   //logs all data to console
-  console.log(allData);
+  // console.log(allData);
 })
 
 // 6.) Write a statement to query the database and console.log() each employees jobTitle.
@@ -60,7 +61,7 @@ emplDB.each("SELECT * FROM more_employees", (err, { jobTitle }) => {
   //call the error handling function defined above
   errorHandle(err)
   //logs only jobTitle to console
-  console.log("Job Title :", jobTitle);
+  // console.log("Job Title :", jobTitle);
 })
 
 // 7.) Write a statement to query the database and console.log() each employees firstName, lastName and address only.
@@ -69,7 +70,7 @@ emplDB.each("SELECT * FROM more_employees", (err, { firstName, lastName, address
   //call the error handling function defined above
   errorHandle(err)
   // logs only firstName, lastName and address
-  console.log("First Name:", firstName, "Last Name:", lastName, "Address: ", address );
+  // console.log("First Name:", firstName, "Last Name:", lastName, "Address: ", address );
 
 })
 
@@ -77,3 +78,13 @@ emplDB.each("SELECT * FROM more_employees", (err, { firstName, lastName, address
 //BONUS
 // 1.) Update the employees table so that is has a salary column
 // Then update each employee record with a value for salary.
+emplDB.run("CREATE TABLE IF NOT EXISTS more_employees (id INT, firstName TEXT, lastName TEXT, jobTitle TEXT, address TEXT, salary INT)");
+
+// 2.) Write a statement that returns all employees of a certain salary.
+
+emplDB.all("SELECT * FROM more_employees WHERE salary > 65000", (err, filterDATA) => {
+  //call the error handling function defined above
+  errorHandle(err)
+  // logs data that passes condition
+  console.log(filterDATA);
+})
