@@ -45,12 +45,35 @@ const populateNewDB = () => {
 
 
 // 5.) Write a statement to query the database and console.log() all employee records.
+
 // querys the entire database with a callback function that returns error first then the data
 emplDB.all("SELECT * FROM more_employees", (err, allData) => {
+  //call the error handling function defined above
   errorHandle(err)
+  //logs all data to console
   console.log(allData);
 })
 
-// Write a statement to query the database and console.log() each employees jobTitle.
-//
-// Write a statement to query the database and console.log() each employees firstName, lastName and address only.
+// 6.) Write a statement to query the database and console.log() each employees jobTitle.
+
+emplDB.each("SELECT * FROM more_employees", (err, { jobTitle }) => {
+  //call the error handling function defined above
+  errorHandle(err)
+  //logs only jobTitle to console
+  console.log("Job Title :", jobTitle);
+})
+
+// 7.) Write a statement to query the database and console.log() each employees firstName, lastName and address only.
+
+emplDB.each("SELECT * FROM more_employees", (err, { firstName, lastName, address }) => {
+  //call the error handling function defined above
+  errorHandle(err)
+  // logs only firstName, lastName and address
+  console.log("First Name:", firstName, "Last Name:", lastName, "Address: ", address );
+
+})
+
+
+//BONUS
+// 1.) Update the employees table so that is has a salary column
+// Then update each employee record with a value for salary.
