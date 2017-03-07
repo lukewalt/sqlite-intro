@@ -13,14 +13,32 @@ const errorHandler = (err) => {
   };
 };
 
+//deletes table
+const dropEmployees = () => {
+  myDB.run(`DROP TABLE employees`)
+}
+// dropEmployees()
+
 // Passing in IF NOT EXISTS after CREATE TABLE will check to make sure there are no tables named 'employees'
 // If it does exist, this line will not run
-myDB.run("CREATE TABLE IF NOT EXISTS employees (id INT, first TEXT, last TEXT)");
+myDB.run("CREATE TABLE IF NOT EXISTS employees (id INT, first TEXT, last TEXT, salary INT, dept TEXT)");
 
-myDB.run("INSERT INTO employees (id, first, last) VALUES (1, 'Michael', 'Scott')");
-// employees TABLE
-// id |  first    |   last
-//  1 | 'Michael' | 'Scott'
+
+const populateEmployees = () => {
+  const { list } = require('./employees.json');
+  list.forEach((each) => {
+    myDB.run(`INSERT INTO employees VALUES (
+      ${each.id},
+      '${each.firstName}',
+      '${each.lastName}',
+      ${each.salary},
+      '${each.dept}'
+      )`)
+  })
+}
+populateEmployees()
+/*
+
 
 myDB.run("INSERT INTO employees VALUES (2, 'Jim', 'Halpert')", errorHandler);
 // employees TABLE
@@ -29,15 +47,12 @@ myDB.run("INSERT INTO employees VALUES (2, 'Jim', 'Halpert')", errorHandler);
 //  2 | 'Jim'     | 'Halpert'
 
 
-const employeeArray = [
-  { id: 3, firstName: 'Dwight', lastName: 'Schrute' },
-  { id: 4, firstName: 'Andy', lastName: 'Bernard' },
-  { id: 5, firstName: 'Pam', lastName: 'Beesly' }
-];
+// const employeeArray = [
+//   { id: 3, firstName: 'Dwight', lastName: 'Schrute' },
+//   { id: 4, firstName: 'Andy', lastName: 'Bernard' },
+//   { id: 5, firstName: 'Pam', lastName: 'Beesly' }
+// ];
 
-employeeArray.forEach((obj) => {
-  myDB.run(`INSERT INTO employees VALUES (${obj.id}, '${obj.firstName}', '${obj.lastName}')`)
-})
 
 // db.all() first runs the query
 // then calls a callback function which it passes all resulting rows
@@ -58,3 +73,5 @@ myDB.close(err => {
   errorHandler(err); // Use custom error handling function
   process.stdout.write('Database closed'); // Will only log on successful close
 })
+
+*/
