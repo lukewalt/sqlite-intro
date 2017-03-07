@@ -23,7 +23,7 @@ const dropEmployees = () => {
 // If it does exist, this line will not run
 myDB.run("CREATE TABLE IF NOT EXISTS employees (id INT, first TEXT, last TEXT, salary INT, dept TEXT)");
 
-
+//definition : pulls list from json file
 const populateEmployees = () => {
   const { list } = require('./employees.json');
   list.forEach((each) => {
@@ -36,38 +36,42 @@ const populateEmployees = () => {
       )`)
   })
 }
-populateEmployees()
-/*
+// populateEmployees()
 
-
-myDB.run("INSERT INTO employees VALUES (2, 'Jim', 'Halpert')", errorHandler);
-// employees TABLE
-// id |  first    |   last
-//  1 | 'Michael' | 'Scott'
-//  2 | 'Jim'     | 'Halpert'
-
-
-// const employeeArray = [
-//   { id: 3, firstName: 'Dwight', lastName: 'Schrute' },
-//   { id: 4, firstName: 'Andy', lastName: 'Bernard' },
-//   { id: 5, firstName: 'Pam', lastName: 'Beesly' }
-// ];
+//gets only a row
+// myDB.get(`SELECT * FROM employees`, (err, row) => {
+//   console.log(row);
+// })
 
 
 // db.all() first runs the query
 // then calls a callback function which it passes all resulting rows
 myDB.all("SELECT * FROM employees", (err, allRows) => {
+  //WHERE salary > 5000
+  // GROUP BY first
+
+  //takes full db query and sorts all rows firstname
+  const alpha = allRows.sort((a, b) => (a.first > b.first) ? 1 : -1)
+    //filter creates a new array out of all rows sorted
+    .filter(each => each.salary > 50000)
+    //map runs a
+    .map(each => `${each.first} ${each.last}s salary: ${each.salary}`)
+  console.log(alpha);
+  console.log(new Date().getMilliseconds());
+
   // allRows is an array containing each row from the query
-  allRows.forEach(each => {
-    console.log(each.id, each.first + ' ' + each.last);
-  });
+  // allRows.forEach(( { id, first, last, salary, dept } ) => {
+    // console.log( `${id} : ${first} ${last}, ${salary}, ${dept}` )
+  // });
 });
-// OUTPUT =>
-// 1, 'Michael Scott'
-// 2, 'Jim Halpert'
-// 3, 'Dwight Schrute'
-// 4, 'Andy Bernard'
-// 5, 'Pam Beesly'
+
+/*
+
+myDB.each(`SELECT * FROM employees`, (err, { id, first, last, salary, dept }) => {
+  console.log(`${id} : ${first} ${last}, ${salary}, ${dept}`);
+  console.log(new Date().getMilliseconds());
+
+})
 
 myDB.close(err => {
   errorHandler(err); // Use custom error handling function
