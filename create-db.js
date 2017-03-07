@@ -13,11 +13,6 @@ const errorHandler = (err) => {
   };
 };
 
-//deletes table
-const dropEmployees = () => {
-  myDB.run(`DROP TABLE employees`)
-}
-// dropEmployees()
 
 // Passing in IF NOT EXISTS after CREATE TABLE will check to make sure there are no tables named 'employees'
 // If it does exist, this line will not run
@@ -57,7 +52,7 @@ myDB.all("SELECT * FROM employees", (err, allRows) => {
     //map runs a
     .map(each => `${each.first} ${each.last}s salary: ${each.salary}`)
   console.log(alpha);
-  console.log(new Date().getMilliseconds());
+  console.log("milliseconds :", new Date().getMilliseconds());
 
   // allRows is an array containing each row from the query
   // allRows.forEach(( { id, first, last, salary, dept } ) => {
